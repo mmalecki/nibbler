@@ -1,0 +1,35 @@
+#!/usr/bin/env node
+var path = require('path')
+var async = require('async')
+var createContext = require('nibbler-configurator')
+
+var context = createContext({
+  argv: process.argv,
+  env: process.env,
+  cwd: process.cwd()
+})
+
+if (context.args._.length !== 3) {
+  console.error('usage: nibbler [options] <playbook>')
+  process.exit(1)
+}
+
+var playbook = require(path.join(process.cwd(), context.args._[2]))
+var p
+
+if (Array.isArray(playbook)) {
+  // Satisfy the ones who love DSLs.
+  p = function(context, cb) {
+    async.series(playbook.map(function(directive) {
+      directive = Array.isArray(directive) ? directive : [directive]
+      directive.push(context)
+      return async.apply.apply(null, directive)
+    }), cb);
+  }
+}
+else p = playbook
+
+p(context, function(err) {
+  if (err) throw err
+  console.log('ok.')
+})
