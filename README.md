@@ -37,3 +37,28 @@ binaries are required on remote side):
 ```sh
 nibbler --runner ssh --ssh root@122.65.21.42 playbook.js
 ```
+
+### Fancying up
+Handling arrays of directives isn't all that Nibbler can do. Underneath, it's
+all JavaScript, and Nibbler is specifically designed so that dropping down to
+it is as easy as it gets.
+
+```js
+var async = require('async')
+var apt = require('nibbler-apt')
+var iojs = require('nibbler-debian-iojs')
+ 
+module.exports = function(context, cb) {
+  async.parallel([
+    async.apply(apt, {
+      updateCache: true,
+      state: 'present',
+      pkg: ['redis-server']
+    }, context),
+    async.apply(iojs, context)
+  ], cb)
+}
+```
+
+This example has the added benefit of running all the actions in parallel.
+You can run it in the same exact way.
