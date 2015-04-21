@@ -2,6 +2,7 @@
 var path = require('path')
 var async = require('async')
 var createContext = require('nibbler-configurator')
+var exec = require('nibbler-exec')
 
 var context = createContext({
   argv: process.argv,
@@ -21,6 +22,7 @@ if (Array.isArray(playbook)) {
   // Satisfy the ones who love DSLs.
   p = function(context, cb) {
     async.series(playbook.map(function(directive) {
+      if (typeof directive === 'string') return async.apply(exec, directive, context)
       directive = Array.isArray(directive) ? directive : [directive]
       directive.push(context)
       return async.apply.apply(null, directive)
