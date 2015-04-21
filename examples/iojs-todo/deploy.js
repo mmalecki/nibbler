@@ -4,6 +4,12 @@ var iojs = require('nibbler-debian-iojs')
 var copy = require('nibbler-copy')
 var upstart = require('nibbler-upstart')
 
+var todoService = {
+  name: 'todo',
+  execpath: 'iojs',
+  script: '/opt/todo/server.js'
+}
+
 module.exports = [
   [ apt, {
     updateCache: true,
@@ -15,12 +21,6 @@ module.exports = [
     src: __dirname,
     dest: '/opt/todo'
   } ],
-  [ upstart.install, {
-    name: 'todo',
-    execpath: 'iojs',
-    script: '/opt/todo/server.js'
-  } ],
-  [ upstart.start, {
-    name: 'todo'
-  } ]
+  [ upstart.install, todoService ],
+  [ upstart.start, todoService ]
 ]
