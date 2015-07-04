@@ -100,12 +100,16 @@ var iojs = require('nibbler-debian-iojs')
  
 module.exports = function(context, cb) {
   async.parallel([
-    async.apply(apt, {
-      updateCache: true,
-      state: 'present',
-      pkg: ['redis-server']
-    }, context),
-    async.apply(iojs, context)
+    function(next) {
+      apt({
+        updateCache: true,
+        state: 'present',
+        pkg: ['redis-server']
+      }, context, next);
+    },
+    function(next) {
+      iojs(context, next);
+    }
   ], cb)
 }
 ```
