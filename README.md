@@ -80,15 +80,15 @@ At the moment, the notable runners are:
 Nibbler comes with no core modules. There are, however, numerous helpers you
 can use:
 
-* [`nibbler-exec`](https://www.npmjs.com/package/nibbler-exec) - for executing commands
+* [`nibbler-exec`](https://www.npmjs.com/package/nibbler-exec) - execute commands
   with regard for global `sudo`
-* [`nibbler-apt`](https://www.npmjs.com/package/nibbler-apt) - for managing Apt packages
-* [`nibbler-copy`](https://www.npmjs.com/package/nibbler-copy) - for copying
-  local directories and files
+* [`nibbler-apt`](https://www.npmjs.com/package/nibbler-apt) - manage Apt packages
+* [`nibbler-copy`](https://www.npmjs.com/package/nibbler-copy) - copy local directories
+  and files
 * [`nibbler-debian-iojs`](https://www.npmjs.com/package/nibbler-debian-iojs) -
-  for installing io.js on a Debian host
-* [`nibbler-upstart`](https://www.npmjs.com/package/nibbler-upstart) - Install,
-  start and stop Upstart services.
+  install Io.js on a Debian host
+* [`nibbler-upstart`](https://www.npmjs.com/package/nibbler-upstart) - install,
+  start and stop Upstart services
 
 ### Fancying up
 Handling arrays of directives isn't all that Nibbler can do. Underneath, it's
