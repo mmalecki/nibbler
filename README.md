@@ -91,7 +91,7 @@ can use:
   start and stop Upstart services
 
 In general, you should be able to find Nibbler modules by
-[searching for "nibbler" on npm"](https://www.npmjs.com/search?q=nibbler).
+[searching for "nibbler" on npm](https://www.npmjs.com/search?q=nibbler).
 
 ### Fancying up
 Handling arrays of directives isn't all that Nibbler can do. Underneath, it's
