@@ -47,6 +47,12 @@ npm install nibbler-runner-ssh nibbler-apt nibbler-debian-iojs
 nibbler --runner ssh --ssh root@122.65.21.42 playbook.js
 ```
 
+### More examples
+There are more complex examples in the [`examples`](https://github.com/mmalecki/nibbler/tree/master/examples/)
+directory:
+
+* [`iojs-todo`](https://github.com/mmalecki/nibbler/tree/master/examples/iojs-todo) - a simple Io.js to-do application.
+
 ### Runners
 The only thing that Nibbler core does is provide you with a JavaScript DSL for
 running actions in series, and easy execution of commands through a runner. All
