@@ -87,6 +87,8 @@ can use:
   local directories and files
 * [`nibbler-debian-iojs`](https://www.npmjs.com/package/nibbler-debian-iojs) -
   for installing io.js on a Debian host
+* [`nibbler-upstart`](https://www.npmjs.com/package/nibbler-upstart) - Install,
+  start and stop Upstart services.
 
 ### Fancying up
 Handling arrays of directives isn't all that Nibbler can do. Underneath, it's
