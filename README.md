@@ -140,10 +140,13 @@ and general architecture and found nothing that I liked. Specifically:
 So I decided to build something like that. What distinguishes Nibbler from the
 rest:
 
-  * Tight integration with the ecosystem. Nibbler uses Node.js and instead of
+  * Integration with the ecosystem. Nibbler uses Node.js and instead of
     creating a DSL for performing actions on remote servers, Nibbler
     uses runners, which implement Node.js `child_process` API but act on the remote.
 
   * npm. Nibbler and its modules are all in npm. You can install them as
     development dependencies. Nibbler modules heavily reuse existing npm modules.
     This also means no core modules - core is where modules die.
+
+Those two things allowed me to develop modules and deploy really fast - using
+APIs and ecosystems which I didn't have to learn allowed me to move quicker.
