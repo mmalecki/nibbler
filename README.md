@@ -1,14 +1,20 @@
-# nibbler
-A deployment system that's inspired by Ansible, but is modular and harnesses
-the power of npm.
+# Nibbler
+A minimal, modular, Node.js- and npm-based deployment system.
 
 ## Installation
 ```sh
-npm install nibbler
+npm install -g nibbler
+```
+
+Or locally, as a development dependency:
+
+```sh
+npm install --save-dev nibbler
 ```
 
 ## Usage
-The following playbook sets up a host with Redis and io.js present.
+The following playbook sets a host up with Redis and io.js present, and prints
+"All done" when done.
 
 ```js
 var apt = require('nibbler-apt')
@@ -20,12 +26,13 @@ module.exports = [
     state: 'present',
     pkg: ['redis-server']
   } ],
-  iojs
+  iojs,
+  "echo 'All done'"
 ]
 ```
 
-If you want to run it against your local machine, simply run (given that your
-playbook file is named `playbook.js`):
+If you want to run it against your local Debian machine, simply run (given that
+your playbook file is named `playbook.js`):
 
 ```sh
 npm install nibbler-runner-local nibbler-apt nibbler-debian-iojs
@@ -40,8 +47,31 @@ npm install nibbler-runner-ssh nibbler-apt nibbler-debian-iojs
 nibbler --runner ssh --ssh root@122.65.21.42 playbook.js
 ```
 
+### Runners
+The only thing that Nibbler core does is provide you with a JavaScript DSL for
+running actions in series, and easy execution of commands through a runner. All
+the logic involved with running commands on a remote (for example, a SSH-enabled
+host or a Docker container) lives in runners.
+
+Runner is a module which receives a Nibbler context descriptor (containing
+command line options, environment, whether to use `sudo` globally, etc.) and
+returns a `child_process`-like API.
+
+So, for example, the local runner is as simple as this:
+
+```js
+module.exports = function(context) {
+  return require('child_process')
+}
+```
+
+At the moment, the notable runners are:
+
+* [`nibbler-runner-ssh`](https://www.npmjs.com/package/nibbler-runner-ssh) - SSH runner
+* [`nibbler-runner-local`](https://www.npmjs.com/package/nibbler-runner-local) - local runner
+
 ### Useful helpers
-Nibbler comes with no "core modules". There are, however, numerous helpers you
+Nibbler comes with no core modules. There are, however, numerous helpers you
 can use:
 
 * [`nibbler-exec`](https://www.npmjs.com/package/nibbler-exec) - for executing commands
@@ -82,3 +112,28 @@ module.exports = function(context, cb) {
 
 This example has the added benefit of running all the actions in parallel.
 You can run it in the same exact way.
+
+## Rationale
+I was looking for a minimal deployment tool with a way to modularize and
+parametrize deployment. I've looked at several available solutions, considering
+the size of the ecosystem and tool's integration with it, the module manager
+and general architecture and found nothing that I liked. Specifically:
+
+  * Ansible - to write modules (instead of roles, which are YAML) you need to
+    write Python and deal with Ansible's module path. Built-in inventory support.
+    Package management is for roles, not modules. YAML.
+
+  * Chef - Ruby. Hard to reuse generic Ruby Gems because of the DSL.
+
+  * Puppet - YAML and DSL.
+
+So I decided to build something like that. What distinguishes Nibbler from the
+rest:
+
+  * Tight integration with the ecosystem. Nibbler uses Node.js and instead of
+    creating a DSL for performing actions on remote servers, Nibbler
+    uses runners, which implement Node.js `child_process` API but act on the remote.
+
+  * npm. Nibbler and its modules are all in npm. You can install them as
+    development dependencies. Nibbler modules heavily reuse existing npm modules.
+    This also means no core modules - core is where modules die.
