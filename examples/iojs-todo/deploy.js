@@ -1,4 +1,3 @@
-var async = require('async')
 var apt = require('nibbler-apt')
 var iojs = require('nibbler-debian-iojs')
 var copy = require('nibbler-copy')
