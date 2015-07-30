@@ -2,6 +2,8 @@
 A minimal, modular, Node.js- and npm-based deployment system.
 
 ## Installation
+Globally:
+
 ```sh
 npm install -g nibbler
 ```
