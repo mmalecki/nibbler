@@ -1,8 +1,7 @@
 #!/usr/bin/env node
 var path = require('path')
-var async = require('async')
 var createContext = require('nibbler-configurator')
-var exec = require('nibbler-exec')
+var run = require('nibbler-run')
 
 var context = createContext({
   argv: process.argv,
@@ -15,40 +14,7 @@ if (context.args._.length !== 3) {
   process.exit(1)
 }
 
-var playbook = require(path.join(process.cwd(), context.args._[2]))
-var p
-
-if (Array.isArray(playbook)) {
-  // Satisfy the ones who love DSLs.
-  p = function(context, cb) {
-    async.series(playbook.map(function(directive) {
-      // If the directive is a string, execute its content in our context.
-      if (typeof directive === 'string') return async.apply(exec, directive, context)
-
-      // If the directive is an object, grab its first key and require `'nibbler-' + key`.
-      // This supports a syntax like: `{ apt: { pkg: 'redis-server', state: 'present' } }`
-      if (typeof directive === 'object' && !Array.isArray(directive)) {
-        var keys = Object.keys(directive)
-        // Remark(mmalecki): Ansible seems to enjoy sticking some meta information
-        // in here too (like a `name` field) - maybe filter those out?
-        if (keys.length !== 1)
-          throw new Error('Exactly one key is required for a directive object')
-
-        var directiveModule = require('nibbler-' + keys[0])
-        return async.apply(directiveModule, directive[keys[0]], context)
-      }
-
-      // If directive is anything but those (for example, a function), wrap
-      // it in an array for the purpose of making it look more like a directive.
-      directive = Array.isArray(directive) ? directive : [directive]
-      directive.push(context)
-      return async.apply.apply(null, directive)
-    }), cb);
-  }
-}
-else p = playbook
-
-p(context, function(err) {
+run(require(path.join(process.cwd(), context.args._[2])), context, function(err) {
   if (err) throw err
   console.log('ok.')
 })
