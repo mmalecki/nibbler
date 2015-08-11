@@ -7,10 +7,11 @@
     "redis": "~0.12.1"
   },
   "devDependencies": {
-    "nibbler": "~0.1.0",
+    "nibbler": "~0.2.0",
     "nibbler-apt": "~0.1.0",
     "nibbler-copy": "~0.1.0",
-    "nibbler-debian-iojs": "~0.1.0"
+    "nibbler-debian-iojs": "~0.1.0",
+    "nibbler-upstart": "~0.1.0"
   },
   "scripts": {
     "deploy": "nibbler deploy.js"
