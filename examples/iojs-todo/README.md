@@ -6,14 +6,7 @@ First, get a VM. Make note of its IP and access details. Make sure that port
 3000 is exposed (that's the port application listens on by default).
 
 Then, clone the Nibbler repository (`git clone https://github.com/mmalecki/nibbler`)
-and run the following in `examples/iojs-todo` directory:
-
-```sh
-npm install
-npm install nibbler-runner-ssh
-```
-
-to install all the dependencies including the SSH runner.
+and run `npm install` in `examples/iojs-todo` directory.
 
 You can now deploy the application:
 
