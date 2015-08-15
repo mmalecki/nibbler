@@ -1,0 +1,16 @@
+{
+  "name": "simple-nginx",
+  "version": "1.0.0",
+  "devDependencies": {
+    "nibbler": "~0.2.0",
+    "nibbler-apt": "~0.1.0",
+    "nibbler-copy": "~0.1.0"
+  },
+  "scripts": {
+    "deploy": "nibbler deploy.js"
+  },
+  "dependencies": {
+    "nibbler-runner-local": "~0.1.0",
+    "nibbler-runner-ssh": "~0.2.0"
+  }
+}
