@@ -4,6 +4,8 @@
   "dependencies": {
     "body-parser": "~1.12.3",
     "express": "~4.12.3",
+    "nibbler-runner-local": "~0.1.0",
+    "nibbler-runner-ssh": "~0.2.0",
     "redis": "~0.12.1"
   },
   "devDependencies": {
