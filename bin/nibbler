@@ -7,14 +7,19 @@ var context = createContext({
   argv: process.argv,
   env: process.env,
   cwd: process.cwd()
-})
+}, function(err, context) {
+  if (err) {
+    console.error('error creating context: ' + err.message)
+    process.exit(2)
+  }
 
-if (context.args._.length !== 3) {
-  console.error('usage: nibbler [options] <playbook>')
-  process.exit(1)
-}
+  if (context.args._.length !== 3) {
+    console.error('usage: nibbler [options] <playbook>')
+    process.exit(1)
+  }
 
-run(require(path.join(process.cwd(), context.args._[2])), context, function(err) {
-  if (err) throw err
-  console.log('ok.')
+  run(require(path.join(process.cwd(), context.args._[2])), context, function(err) {
+    if (err) throw err
+    console.log('ok.')
+  })
 })

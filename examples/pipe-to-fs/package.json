@@ -1,0 +1,11 @@
+{
+  "name": "pipe-to-fs",
+  "version": "1.0.0",
+  "devDependencies": {
+    "nibbler": "~0.2.0",
+    "request": "~2.60.0"
+  },
+  "scripts": {
+    "deploy": "nibbler deploy.js"
+  }
+}

@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/mmalecki/nibbler",
   "dependencies": {
-    "nibbler-configurator": "~0.1.0",
+    "nibbler-configurator": "~0.2.0",
     "nibbler-run": "~0.1.1"
   },
   "bin": {
